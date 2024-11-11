@@ -1,0 +1,40 @@
+.main-container {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fffaf0;
+}
+
+.main-btns {
+  display: flex;
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+.home-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #f76507;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.align-menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 40px;
+  color: #f76507;
+}
+
+.saldo {
+  color: #006992;
+  display: flex;
+  align-items: center;
+}
+
+p {
+  font-size: 22px;
+}
