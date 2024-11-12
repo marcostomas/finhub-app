@@ -1,0 +1,49 @@
+.main-container {
+  padding: 24px;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.item-container {
+  padding: 16px;
+  width: 45%;
+  height: 60%;
+  background-color: #f76507;
+  border-radius: 15px;
+}
+
+h4 {
+  font-size: 24px;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.total-container {
+  color: white;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.background-item {
+  padding: 2px;
+  border-radius: 5px;
+  background-color: #fffaf0;
+  color: #386150;
+  gap: 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.no-background-item {
+  padding: 2px;
+  background-color: #f76507;
+  color: white;
+  gap: 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
