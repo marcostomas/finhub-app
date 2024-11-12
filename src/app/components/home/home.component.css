@@ -3,6 +3,7 @@
   gap: 24px;
   display: flex;
   flex-direction: column;
+  padding: 24px 32px;
 }
 
 .cor-titulo {

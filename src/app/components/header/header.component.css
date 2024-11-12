@@ -21,7 +21,7 @@
   justify-content: center;
 }
 
-.align-menu {
+.menu {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -37,4 +37,25 @@
 
 p {
   font-size: 22px;
+}
+
+.menu-item {
+  padding: 10px;
+  text-decoration: none;
+  color: #f76507;
+  position: relative;
+}
+
+.menu-item.active {
+  font-weight: bold;
+  border-bottom: 2px solid #f76507;
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: orange;
+  width: 100px;
+  transition: left 0.3s ease;
 }

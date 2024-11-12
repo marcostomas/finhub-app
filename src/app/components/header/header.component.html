@@ -3,10 +3,38 @@
     <nav class="home-icon"><a routerLink="/home"></a></nav>
 
     <div>
-      <nav class="align-menu">
-        <p><a routerLink="/home"> Home </a></p>
-        <p><a routerLink="/extrato"> Extrato </a></p>
-        <p><a routerLink="/gastos"> Gastos </a></p>
+      <nav class="menu">
+        <p>
+          <a
+            routerLink="/home"
+            class="menu-item"
+            [class.active]="activeTab === 'home'"
+            (click)="setActiveTab('home')"
+          >
+            Home
+          </a>
+        </p>
+        <p>
+          <a
+            routerLink="/extrato"
+            class="menu-item"
+            [class.active]="activeTab === 'extrato'"
+            (click)="setActiveTab('extrato')"
+          >
+            Extrato
+          </a>
+        </p>
+        <p>
+          <a
+            routerLink="/gastos"
+            class="menu-item"
+            [class.active]="activeTab === 'gastos'"
+            (click)="setActiveTab('gastos')"
+          >
+            Gastos
+          </a>
+        </p>
+        <div class="underline" [ngStyle]="{ left: underlinePosition }"></div>
       </nav>
     </div>
   </section>
