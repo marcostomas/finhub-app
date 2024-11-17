@@ -1,7 +1,24 @@
+.main-container {
+    background-color: #fffaf0;
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 32px;
+  }
+
+
+
 .chart-container {
     position: relative;
     width: 100%;
-    height: 400px; /* Tamanho do gráfico */
+    height: 100%; /* Tamanho do gráfico */
     margin: 20px auto;
   }
+
+.section-default{
+    margin: auto;
+    width: 100%;
+    height: max-content;
+    background-color: none;
+}
   

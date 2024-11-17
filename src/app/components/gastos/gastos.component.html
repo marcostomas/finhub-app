@@ -1,8 +1,16 @@
-<main>
+<main class="main-container">
+    <section>
     <div class="chart-container">
         <!-- Usando ViewChild para referenciar o canvas -->
-        <canvas #gastosChart></canvas>
-      </div>
-      
-      
+         <h3 style="color: #F76507;">Distribuição de Gastos</h3>
+        <canvas #pieChart></canvas>
+    </div>
+    </section>
+    <section>
+        <div class="chart-container">
+            <h3 style="color: #F76507;">Gastos Mensais</h3>
+            <canvas #barChart></canvas>
+        </div>    
+    </section>
+
 </main>
