@@ -6,17 +6,28 @@
     padding: 24px 32px;
   }
 
+.title{
+  color: #f76307; 
+  position: relative; 
+  align-self: center;
+}
 
-
+.div-pie{
+    position: relative;
+    width: 100%;
+    height: 60%;
+    margin: 20px auto;
+}
 .chart-container {
     position: relative;
     width: 100%;
-    height: 100%; /* Tamanho do gráfico */
+    height: 100%;
     margin: 20px auto;
-  }
+}
+  
 
 .section-default{
-    margin: auto;
+    margin: 20px auto;
     width: 100%;
     height: max-content;
     background-color: none;
