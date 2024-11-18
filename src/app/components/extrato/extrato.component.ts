@@ -1,12 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-extrato',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './extrato.component.html',
-  styleUrl: './extrato.component.css'
+  styleUrl: './extrato.component.css',
 })
-export class ExtratoComponent {
-
-}
+export class ExtratoComponent {}
