@@ -3,6 +3,7 @@
   display: flex;
   gap: 40px;
   justify-content: center;
+  background-color: #fffaf0;
 }
 
 .item-container {
