@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 interface GastosPorClassificacao {
@@ -31,6 +31,28 @@ export class GastosService {
     const body = { clienteCPF, conta, dataInicio, dataFim };
     return this.http.post<GastosPorConta[]>(endpoint, body);
   }
+
+    // Método para buscar gastos por classificação
+    getGastosPorClassificacaoGET(clienteCPF: string, dataInicio: string, dataFim: string): Observable<GastosPorClassificacao[]> {
+      const params = new HttpParams()
+        .set('clienteCPF', clienteCPF)
+        .set('dataInicio', dataInicio)
+        .set('dataFim', dataFim);
+      const endpoint = `${this.apiBaseUrl}/GetGastosPorClassificacao`;
+      return this.http.get<GastosPorClassificacao[]>(endpoint, { params });
+    }
+  
+    // Método para buscar gastos por conta
+    getGastosPorContaGET(clienteCPF: string, conta: string, dataInicio: string, dataFim: string): Observable<GastosPorConta[]> {
+      const params = new HttpParams()
+        .set('clienteCPF', clienteCPF)
+        .set('conta', conta)
+        .set('dataInicio', dataInicio)
+        .set('dataFim', dataFim);
+      const endpoint = `${this.apiBaseUrl}/GetGastosPorConta`;
+      return this.http.get<GastosPorConta[]>(endpoint, { params });
+    }
+  
 }
 
 

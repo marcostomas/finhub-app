@@ -35,20 +35,34 @@ export class GastosComponent implements OnInit, AfterViewInit {
   }
 
   carregarDados() {
-    const { clienteCPF, dataInicio, dataFim } = this.filtros;
-
-    this.gastosService.getGastosPorClassificacao(clienteCPF, dataInicio, dataFim).subscribe({
-      next: (data) => {
-        this.jsonData = data.map(item => ({
-          label: item.classificacao,
-          value: item.valor
-        }));
-        this.initializeChartData();
-      },
-      error: (err) => console.error('Erro ao carregar dados:', err)
-    });
+    var { clienteCPF, dataInicio, dataFim, conta } = this.filtros;
+    clienteCPF= '47526501933';
+    // Decide qual método do serviço usar, dependendo dos filtros aplicados
+    if (conta) {
+      this.gastosService.getGastosPorConta(clienteCPF, conta, dataInicio, dataFim).subscribe({
+        next: (data) => {
+          this.jsonData = data.map(item => ({
+            label: item.numeroConta,
+            value: item.valor
+          }));
+          this.initializeChartData();
+        },
+        error: (err) => console.error('Erro ao carregar dados:', err)
+      });
+    } else {
+      this.gastosService.getGastosPorClassificacao(clienteCPF, dataInicio, dataFim).subscribe({
+        next: (data) => {
+          this.jsonData = data.map(item => ({
+            label: item.classificacao,
+            value: item.valor
+          }));
+          this.initializeChartData();
+        },
+        error: (err) => console.error('Erro ao carregar dados:', err)
+      });
+    }
   }
-
+  
   initializeChartData() {
     this.pieChartData = this.jsonData.map((data, index) => ({
       ...data,

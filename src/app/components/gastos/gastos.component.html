@@ -31,18 +31,39 @@
                 
                 
                 <!-- Filtro de Conta -->
-                <div style="width: 30%;" class="filtro-row">
-                
+                <div class="filtro-row">
                     <h5 style="color: #f76307;">Conta</h5>
-                    <input
-                        id="contaFiltro"
-                        type="text"
-                        [(ngModel)]="filtros.conta"
-                        name="conta"
-                        (keyup.enter)="carregarDados()"
-                        placeholder="Digite o número da conta"
-                    />
+                    <select
+                      id="contaFiltro"
+                      [(ngModel)]="filtros.conta"
+                      name="conta"
+                      (change)="carregarDados()"
+                    >
+                      <option value="" disabled selected>Selecione uma conta</option>
+                      <option value="12345678">12345678: Bradesco</option>
+                      <option value="56482100">56482100: Banco PAN</option>
+                      <option value="45469208">45469208: Banco Safra</option>
+                      <option value="89461379">89461379: BTG Pactual</option>
+                    </select>
                 </div>
+
+                <!-- Filtro de Conta -->
+                <div class="filtro-row">
+                    <h5 style="color: #f76307;">Conta</h5>
+                    <select
+                      id="contaFiltro"
+                      [(ngModel)]="filtros.conta"
+                      name="conta"
+                      (change)="carregarDados()"
+                    >
+                      <option value="" disabled selected>Selecione uma conta</option>
+                      <option value="12345678">12345678: Bradesco</option>
+                      <option value="56482100">56482100: Banco PAN</option>
+                      <option value="45469208">45469208: Banco Safra</option>
+                      <option value="89461379">89461379: BTG Pactual</option>
+                    </select>
+                </div>
+                  
             </form>
         </div>
 
