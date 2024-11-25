@@ -32,3 +32,23 @@ export class GastosService {
     return this.http.post<GastosPorConta[]>(endpoint, body);
   }
 }
+
+
+// export class GastosService {
+//   private apiUrl = 'https://localhost:7152/api/CentralGastos/GetGastosPorClassificacao'; // Endpoint da sua API
+
+//   constructor(private http: HttpClient) {}
+
+//   // Método GET que recebe filtros e constrói os parâmetros da URL
+//   getGastos(filtros: any): Observable<any> {
+//     // Construindo os parâmetros de consulta (query params) para a URL
+//     let params = new HttpParams()
+//       .set('clienteCPF', filtros.clienteCPF)
+//       .set('dataInicio', filtros.dataInicio)
+//       .set('dataFim', filtros.dataFim)
+//       .set('conta', filtros.conta);
+
+//     // Fazendo a requisição GET com os parâmetros
+//     return this.http.get<any>(this.apiUrl, { params });
+//   }
+// }

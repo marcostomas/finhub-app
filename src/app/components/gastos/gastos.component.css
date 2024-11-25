@@ -10,22 +10,23 @@
   color: #f76307; 
   position: relative; 
   align-self: center;
+  margin: 12px;
 }
 
 .Filtros-gastos-container{
   position: relative;
-  margin: 3%;
-  border: 4px #f76307;
+  border: 8px solid #f76507;
   height: fit-content;
-  width: 40%;
+  width: 100%;
+  border-radius: 32px;
   align-items: center;
 }
 .filtro-row{
-  width: inherit;
+  width: 60%;
   min-height: 10%;
   height: fit-content;
-  position: inherit;
-  margin: 64px;
+  position: relative;
+  margin: 32px;
 }
 .div-pie{
     position: relative;

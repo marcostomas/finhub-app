@@ -7,30 +7,32 @@
         <!-- Filtros -->
         <div class="Filtros-gastos-container">
             <h4 class="title">Filtros</h4>
-            <form>
+            <form style="display: flex;">
                 <!-- Filtro de Período -->
                 <div class="filtro-row">
                     <h5 style="color: #f76307;">Período</h5>
-                    <label for="dataInicio">De:</label>
+                    <label style="margin-right: 8px;" for="dataInicio">De:</label>
                     <input
-                        id="dataInicio"
-                        type="date"
-                        [(ngModel)]="filtros.dataInicio"
-                        name="dataInicio"
-                        (change)="carregarDados()"
+                    id="dataInicio"
+                    type="date"
+                    [(ngModel)]="filtros.dataInicio"
+                    name="dataInicio"
+                    (change)="carregarDados()"
                     />
-                    <label for="dataFim">Até:</label>
+                    <label style="margin-right: 8px;margin-left: 16px;" for="dataFim">Até:</label>
                     <input
-                        id="dataFim"
-                        type="date"
-                        [(ngModel)]="filtros.dataFim"
-                        name="dataFim"
-                        (change)="carregarDados()"
+                    id="dataFim"
+                    type="date"
+                    [(ngModel)]="filtros.dataFim"
+                    name="dataFim"
+                    (change)="carregarDados()"
                     />
                 </div>
-
+                
+                
                 <!-- Filtro de Conta -->
-                <div class="filtro-row">
+                <div style="width: 30%;" class="filtro-row">
+                
                     <h5 style="color: #f76307;">Conta</h5>
                     <input
                         id="contaFiltro"
