@@ -1,159 +1,108 @@
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, ElementRef, QueryList } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
-import { Component, AfterViewInit, ViewChild, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { Chart, registerables, ChartOptions, ChartData } from 'chart.js';
+import { GastosService } from './gastos.service'; // Importação do serviço
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-gastos',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, FormsModule],
+  providers: [], // Removemos o provideHttpClient daqui, pois foi configurado globalmente
   templateUrl: './gastos.component.html',
   styleUrls: ['./gastos.component.css']
 })
-export class GastosComponent implements AfterViewInit {
+export class GastosComponent implements OnInit, AfterViewInit {
   @ViewChild('pieChart') pieCanvasRef!: ElementRef<HTMLCanvasElement>;
   @ViewChildren('barChart') barCanvasRefs!: QueryList<ElementRef<HTMLCanvasElement>>;
 
-  private pieChart: Chart | undefined;
-  private barCharts: Chart[] = [];
+  filtros = {
+    clienteCPF: '12345678901', // Exemplo de CPF fixo
+    classificacao: null,
+    conta: '',
+    dataInicio: '',
+    dataFim: ''
+  };
 
-  // Exemplo de dados (em um cenário real, esses dados seriam dinâmicos)
-  pieChartData = [
-    { label: 'Alimentos', value: 0, pieflavor: 'rgba(56, 97, 80, 1.0)' },
-    { label: 'Transporte', value: 0, pieflavor:'rgba(0, 105, 146, 1.0)'},
-    { label: 'Moradia', value: 0, pieflavor:'rgba(0, 105, 146, 1.0)' },
-    { label: 'Lazer', value: 0, pieflavor:'rgba(0, 105, 146, 1.0)' },
-    { label: 'Outros', value: 0, pieflavor:'rgba(0, 105, 146, 1.0)' }
-  ];
+  pieChartData: { label: string; value: number; pieflavor: string }[] = [];
+  jsonData: { label: string; value: number }[] = [];
+  barCharts: Chart[] = [];
 
-  barChartData = [
-    { label: 'Janeiro', values: [200, 150, 250, 100, 50] },
-    { label: 'Fevereiro', values: [250, 100, 350, 120, 90] },
-    { label: 'Março', values: [300, 200, 400, 130, 110] },
-    { label: 'Abril', values: [400, 250, 500, 150, 130] },
-    { label: 'Maio', values: [450, 300, 550, 170, 150] },
-    { label: 'Junho', values: [450, 300, 550, 170, 150] },
-    { label: 'Julho', values: [450, 300, 550, 170, 150] },
-    { label: 'Agosto', values: [450, 300, 550, 170, 150] },
-    { label: 'Setembro', values: [450, 300, 550, 170, 150] },
-    { label: 'Outubro', values: [450, 300, 550, 170, 150] },
-    { label: 'Novembro', values: [450, 300, 550, 170, 150] },
-    { label: 'Dezembro', values: [0, 0, 0, 0, 0] }
-  ];
+  constructor(private gastosService: GastosService) {}
 
-  colorpalet = [
-    'rgba(56, 97, 80, 1.0)',
-    'rgba(0, 105, 146, 1.0)',
-    'rgba(247, 101, 7, 1.0)',
-    'rgba(20, 17, 21, 1.0)'
-  ];
+  ngOnInit(): void {
+    // Carregar os dados iniciais com filtros padrão
+    this.carregarDados();
+  }
+
+  carregarDados() {
+    const { clienteCPF, dataInicio, dataFim, conta, classificacao } = this.filtros;
   
-  private defineData() {
-    // Loop through pieChartData categories
-    for (let i = 0; i < this.pieChartData.length; i++) {
-      // Sum the values for the current category across all months
-      this.pieChartData[i].value = this.barChartData.reduce((sum, element) => sum + element.values[i], 0);
-      
-      // Ensure that we have enough colors in the color palette
-      if (i >= this.colorpalet.length) {
-        const newColor = this.adjustColorOpacity(this.colorpalet[i % 4], 0.5); // Adjust the opacity for new colors
-        this.colorpalet.push(newColor);
-      }
-      
-      // Assign the color to the pieChartData category
-      this.pieChartData[i].pieflavor = this.colorpalet[i];
+    // Verifica se foi selecionada uma classificação
+    if (classificacao !== undefined && classificacao !== null) {
+      this.gastosService.getGastosPorClassificacao(clienteCPF, classificacao, dataInicio, dataFim).subscribe({
+        next: (data) => {
+          this.jsonData = data.map(item => ({
+            label: item.classificacao,
+            value: item.valor
+          }));
+          this.initializeChartData();
+        },
+        error: (err) => console.error('Erro ao carregar dados por classificação:', err)
+      });
     }
-  
-    // Ensure Angular tracks the changes by creating new references
-    this.pieChartData = [...this.pieChartData];  // This triggers change detection for pieChartData
-    this.colorpalet = [...this.colorpalet];      // This triggers change detection for colorpalet
-  
-    return this.pieChartData;
   }
-  
-  // Helper function to adjust color opacity
-  private adjustColorOpacity(color: string, opacityFactor: number): string {
-    let temp = color.split(',');
-    let opacity = parseFloat(temp[3].replace(')', '').trim());
-    let newOpacity = Math.max(0, Math.min(1, opacity * opacityFactor)); // Make sure opacity is between 0 and 1
-    temp[3] = `, ${newOpacity})`; // Update opacity value
-    return temp.join(',');
-  }
-  
+    
+  initializeChartData() {
+    this.pieChartData = this.jsonData.map((data, index) => ({
+      ...data,
+      pieflavor: this.getDynamicColor(index)
+    }));
 
-  ngAfterViewInit() {
-    // Registra todos os componentes do Chart.js
-    Chart.register(...registerables);
-    this.pieChartData = this.defineData();
-    // Gráfico de Pizza (Setores)
-    const pieCtx = this.pieCanvasRef.nativeElement.getContext('2d');
-    if (pieCtx) {
-      this.pieChart = new Chart(pieCtx, {
-        type: 'pie',  // Tipo de gráfico 'pie'
+    //this.createPieChart();
+    //this.createBarCharts();
+  }
+
+  private getDynamicColor(index: number): string {
+    const colors = ['#56a870', '#007ba0', '#f76507', '#141315'];
+    return colors[index % colors.length];
+  }
+
+  ngAfterViewInit(): void {
+      this.createPieChart;
+      this.createBarCharts;
+  }
+  createPieChart() {
+    const ctx = this.pieCanvasRef.nativeElement.getContext('2d');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'pie',
         data: {
           labels: this.pieChartData.map(d => d.label),
           datasets: [{
             data: this.pieChartData.map(d => d.value),
-             backgroundColor: this.pieChartData.map(d => d.pieflavor) //[
-            //   'rgba(56, 97, 80, 1.0)',
-            //   'rgba(0, 105, 146, 1.0)',
-            //   'rgba(247, 101, 7, 1.0)',
-            //   'rgba(0, 105, 146, 0.5)',
-            //   'rgba(20, 17, 21, 1.0)'
-            // ]
+            backgroundColor: this.pieChartData.map(d => d.pieflavor)
           }]
-        } as ChartData,
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-            tooltip: {
-              enabled: true,
-            }
-          }
-        } as ChartOptions
+        }
       });
     }
-
-    // Gráficos de Barras Dinâmicos (baseado no número de categorias do gráfico de pizza)
-    this.createBarCharts();
   }
 
-  // Cria os gráficos de barras dinamicamente com base nos dados do gráfico de pizza
   createBarCharts() {
     this.barCanvasRefs.toArray().forEach((canvasRef, index) => {
       const ctx = canvasRef.nativeElement.getContext('2d');
       if (ctx) {
-        const barChart = new Chart(ctx, {
-          type: 'bar',  // Tipo de gráfico 'bar'
+        new Chart(ctx, {
+          type: 'bar',
           data: {
-            labels: this.barChartData.map(d => d.label),  // Labels no eixo X
+            labels: this.jsonData.map(d => d.label),
             datasets: [{
-              label: this.pieChartData[index]?.label || 'Categoria',  // Rótulo da barra
-              data: this.barChartData.map(d => d.values[index]),  // Dados para a categoria correspondente
+              label: this.pieChartData[index]?.label || 'Categoria',
+              data: this.jsonData.map(d => d.value),
               backgroundColor: this.pieChartData[index]?.pieflavor
             }]
-          } as ChartData,
-          options: {
-            responsive: true,
-            scales: {
-              y: {
-                beginAtZero: true
-              }
-            },
-            plugins: {
-              legend: {
-                position: 'top',
-              },
-              tooltip: {
-                enabled: true,
-              }
-            }
-          } as ChartOptions
+          }
         });
-
-        this.barCharts.push(barChart); // Armazena as instâncias dos gráficos
       }
     });
   }

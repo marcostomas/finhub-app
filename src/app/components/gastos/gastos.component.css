@@ -10,22 +10,39 @@
   color: #f76307; 
   position: relative; 
   align-self: center;
+  margin: 12px;
 }
 
+.Filtros-gastos-container{
+  position: relative;
+  border: 8px solid #f76507;
+  height: fit-content;
+  width: 100%;
+  border-radius: 32px;
+  align-items: center;
+}
+.filtro-row{
+  width: 33%;
+  min-height: 10%;
+  height: fit-content;
+  position: relative;
+  margin: 32px;
+}
 .div-pie{
     position: relative;
-    width: 100%;
-    height: 60%;
+    min-width: 60%;
+    min-height: 60%;
+    /* width: fit-content;
+    height: fit-content; */
     margin: 20px auto;
 }
+
 .chart-container {
     position: relative;
     width: 100%;
     height: 100%;
     margin: 20px auto;
 }
-  
-
 .section-default{
     margin: 20px auto;
     width: 100%;

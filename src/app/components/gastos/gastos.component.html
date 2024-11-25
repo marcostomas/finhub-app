@@ -1,23 +1,91 @@
 <main class="main-container">
     <section>
         <div>
-            <h3 class="title">Distribuição de Gastos</h3>            
+            <h3 class="title">Distribuição de Gastos</h3>
         </div>
-        
+
+        <!-- Filtros -->
+        <div class="Filtros-gastos-container">
+            <h4 class="title">Filtros</h4>
+            <form style="display: container;">
+                <!-- Filtro de Período -->
+                <div class="filtro-row">
+                    <h5 style="color: #f76307;">Período</h5>
+                    <label style="margin-right: 8px;" for="dataInicio">De:</label>
+                    <input style="margin-right: 8px;"
+                    id="dataInicio"
+                    type="date"
+                    [(ngModel)]="filtros.dataInicio"
+                    name="dataInicio"
+                    (change)="carregarDados()"
+                    />
+                    <label style="margin-right: 8px;" for="dataFim">Até:</label>
+                    <input
+                    id="dataFim"
+                    type="date"
+                    [(ngModel)]="filtros.dataFim"
+                    name="dataFim"
+                    (change)="carregarDados()"
+                    />
+                </div>
+                
+                
+                <div class="filtro-row">
+                    <h5 style="color: #f76307;">Conta</h5>
+                    <select
+                      id="contaFiltro"
+                      [(ngModel)]="filtros.conta"
+                      name="conta"
+                      (change)="carregarDados()"
+                    >
+                      <option value="" disabled selected>Selecione uma conta</option>
+                      <option value="12345678">12345678: Bradesco</option>
+                      <option value="56482100">56482100: Banco PAN</option>
+                      <option value="45469208">45469208: Banco Safra</option>
+                      <option value="89461379">89461379: BTG Pactual</option>
+                    </select>
+                </div>
+                  
+                <div class="filtro-row">
+                    <h5 style="color: #f76307;">Categoria</h5>
+                    <select
+                      id="classificacaoFiltro"
+                      [(ngModel)]="filtros.classificacao"
+                      name="classificacao"
+                      (change)="carregarDados()"
+                    >
+                      <option value="" disabled selected>Selecione uma classificação</option>
+                      <option value="0">Contas</option>
+                      <option value="1">Compras</option>
+                      <option value="2">Transporte</option>
+                      <option value="3">Alimentação</option>
+                      <option value="4">Educação</option>
+                      <option value="5">Saúde</option>
+                      <option value="6">Lazer e Entretenimento</option>
+                      <option value="7">Valores Creditados</option>
+                      <option value="8">Outros</option>
+                    </select>
+                </div>
+                  
+                  
+            </form>
+        </div>
+
+        <!-- Gráfico de Pizza -->
         <div class="div-pie">
-            <!-- Usando ViewChild para referenciar o canvas -->
             <canvas #pieChart></canvas>
         </div>
     </section>
 
+    <!-- Gráficos de Barras -->
     <section>
         <div *ngFor="let _ of pieChartData; let i = index" class="chart-container">
             <div style="margin: 20px auto;">
                 <h3 class="title" [style.color]="pieChartData[i].pieflavor">
-                    Gastos Mensais para {{ pieChartData[i].label }} </h3>
+                    Gastos Mensais para {{ pieChartData[i].label }}
+                </h3>
             </div>
             <canvas #barChart></canvas>
-        </div>    
+        </div>
     </section>
-
 </main>
