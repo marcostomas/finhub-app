@@ -8,4 +8,5 @@ export const routes: Routes = [
   { path: 'extrato', component: ExtratoComponent },
   { path: 'gastos', component: GastosComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' },
 ];
