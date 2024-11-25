@@ -81,3 +81,9 @@
   align-items: center;
   justify-content: center;
 }
+
+.flex-spc-btw {
+  gap: 16px;
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,4 +1,4 @@
-<main class="main-container">
+<!-- <main class="main-container">
   <section class="item-container">
     <div>
       <h4>Entradas</h4>
@@ -82,5 +82,43 @@
         <p>eBay</p>
       </div>
     </div>
+  </section>
+</main> -->
+
+<main class="main-container">
+  <section class="tabela">
+    <div *ngFor="let dado of entradaUsuario" class="flex-row">
+      <p class="cor-titulo"><strong>Saldo Total:</strong></p>
+      <p class="cor-saldo">
+        <strong>R$ {{ dado.saldoTotal }}</strong>
+      </p>
+    </div>
+
+    <table>
+      <tbody class="itens-container flex-spc-btw">
+        <tr *ngFor="let dado of entradaUsuario" class="dados">
+          <td>{{ dado.entrada }}</td>
+          <td>{{ dado.nomeEstabelecimento }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="tabela">
+    <div *ngFor="let dado of saidaUsuario" class="flex-row">
+      <p class="cor-titulo"><strong>Saldo Total:</strong></p>
+      <p class="cor-saldo">
+        <strong>R$ {{ dado.saldoTotal }}</strong>
+      </p>
+    </div>
+
+    <table>
+      <tbody class="itens-container flex-spc-btw">
+        <tr *ngFor="let dado of saidaUsuario" class="dados">
+          <td>{{ dado.saida }}</td>
+          <td>{{ dado.nomeEstabelecimento }}</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 </main>
