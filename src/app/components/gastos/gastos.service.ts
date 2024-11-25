@@ -38,6 +38,15 @@ export class GastosService {
     return this.http.post<GastosPorClassificacao[]>(endpoint, body);
   }
 
+  NEWGetGastosPorClassificacao(clienteCPF: string, dataInicio: string, dataFim: string): Observable<{ [key: string]: number }> {
+    const endpoint = `${this.apiBaseUrl}/GetGastosPorClassificacao`;
+    const body = { clienteCPF, dataInicio, dataFim };
+    return this.http.post<{ [key: string]: number }>(endpoint, body);
+  }
+
+
+
+
   // Método para buscar gastos por conta via POST
   getGastosPorConta(
     clienteCPF: string,

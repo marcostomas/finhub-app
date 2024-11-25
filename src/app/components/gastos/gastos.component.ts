@@ -67,7 +67,20 @@ export class GastosComponent implements OnInit, AfterViewInit {
       });
     } 
     // Caso nem classificação nem conta sejam fornecidos, mostra uma mensagem de erro ou faz algo padrão
-    else {
+    else if(dataInicio && dataFim){
+      this.gastosService.NEWGetGastosPorClassificacao(clienteCPF, dataInicio, dataFim).subscribe({
+        next: (data) => {
+          // Transforma o objeto recebido no formato [{label, value}]
+          this.jsonData = Object.entries(data).map(([key, value]) => ({
+            label: key,
+            value: value as number
+          }));
+          this.initializeChartData();
+        },
+        error: (err) => console.error('Erro ao carregar dados por classificação:', err)
+      });
+    }else{
+  
       this.mensagemErro = 'Por favor, selecione uma classificação ou uma conta para aplicar os filtros.';
       console.error('Por favor, selecione uma classificação ou uma conta para aplicar os filtros.');
       // Você pode adicionar uma mensagem de erro para o usuário aqui, por exemplo:
