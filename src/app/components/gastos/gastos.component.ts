@@ -18,6 +18,7 @@ export class GastosComponent implements OnInit, AfterViewInit {
 
   filtros = {
     clienteCPF: '12345678901', // Exemplo de CPF fixo
+    classificacao: null,
     conta: '',
     dataInicio: '',
     dataFim: ''
@@ -35,22 +36,11 @@ export class GastosComponent implements OnInit, AfterViewInit {
   }
 
   carregarDados() {
-    var { clienteCPF, dataInicio, dataFim, conta } = this.filtros;
-    clienteCPF= '47526501933';
-    // Decide qual método do serviço usar, dependendo dos filtros aplicados
-    if (conta) {
-      this.gastosService.getGastosPorConta(clienteCPF, conta, dataInicio, dataFim).subscribe({
-        next: (data) => {
-          this.jsonData = data.map(item => ({
-            label: item.numeroConta,
-            value: item.valor
-          }));
-          this.initializeChartData();
-        },
-        error: (err) => console.error('Erro ao carregar dados:', err)
-      });
-    } else {
-      this.gastosService.getGastosPorClassificacao(clienteCPF, dataInicio, dataFim).subscribe({
+    const { clienteCPF, dataInicio, dataFim, conta, classificacao } = this.filtros;
+  
+    // Verifica se foi selecionada uma classificação
+    if (classificacao !== undefined && classificacao !== null) {
+      this.gastosService.getGastosPorClassificacao(clienteCPF, classificacao, dataInicio, dataFim).subscribe({
         next: (data) => {
           this.jsonData = data.map(item => ({
             label: item.classificacao,
@@ -58,11 +48,11 @@ export class GastosComponent implements OnInit, AfterViewInit {
           }));
           this.initializeChartData();
         },
-        error: (err) => console.error('Erro ao carregar dados:', err)
+        error: (err) => console.error('Erro ao carregar dados por classificação:', err)
       });
     }
   }
-  
+    
   initializeChartData() {
     this.pieChartData = this.jsonData.map((data, index) => ({
       ...data,

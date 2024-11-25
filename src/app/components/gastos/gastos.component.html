@@ -30,7 +30,6 @@
                 </div>
                 
                 
-                <!-- Filtro de Conta -->
                 <div class="filtro-row">
                     <h5 style="color: #f76307;">Conta</h5>
                     <select
@@ -46,23 +45,28 @@
                       <option value="89461379">89461379: BTG Pactual</option>
                     </select>
                 </div>
-
-                <!-- Filtro de Conta -->
+                  
                 <div class="filtro-row">
-                    <h5 style="color: #f76307;">Conta</h5>
+                    <h5 style="color: #f76307;">Categoria</h5>
                     <select
-                      id="contaFiltro"
-                      [(ngModel)]="filtros.conta"
-                      name="conta"
+                      id="classificacaoFiltro"
+                      [(ngModel)]="filtros.classificacao"
+                      name="classificacao"
                       (change)="carregarDados()"
                     >
-                      <option value="" disabled selected>Selecione uma conta</option>
-                      <option value="12345678">12345678: Bradesco</option>
-                      <option value="56482100">56482100: Banco PAN</option>
-                      <option value="45469208">45469208: Banco Safra</option>
-                      <option value="89461379">89461379: BTG Pactual</option>
+                      <option value="" disabled selected>Selecione uma classificação</option>
+                      <option value="0">Contas</option>
+                      <option value="1">Compras</option>
+                      <option value="2">Transporte</option>
+                      <option value="3">Alimentação</option>
+                      <option value="4">Educação</option>
+                      <option value="5">Saúde</option>
+                      <option value="6">Lazer e Entretenimento</option>
+                      <option value="7">Valores Creditados</option>
+                      <option value="8">Outros</option>
                     </select>
                 </div>
+                  
                   
             </form>
         </div>
