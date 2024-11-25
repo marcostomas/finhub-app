@@ -12,20 +12,36 @@
   align-self: center;
 }
 
+.Filtros-gastos-container{
+  position: relative;
+  margin: 3%;
+  border: 4px #f76307;
+  height: fit-content;
+  width: 40%;
+  align-items: center;
+}
+.filtro-row{
+  width: inherit;
+  min-height: 10%;
+  height: fit-content;
+  position: inherit;
+  margin: 64px;
+}
 .div-pie{
     position: relative;
-    width: 100%;
-    height: 60%;
+    min-width: 60%;
+    min-height: 60%;
+    /* width: fit-content;
+    height: fit-content; */
     margin: 20px auto;
 }
+
 .chart-container {
     position: relative;
     width: 100%;
     height: 100%;
     margin: 20px auto;
 }
-  
-
 .section-default{
     margin: 20px auto;
     width: 100%;
