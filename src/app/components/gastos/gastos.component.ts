@@ -1,13 +1,13 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, ElementRef, QueryList } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { GastosService } from './gastos.service'; // Importação do serviço
 import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-gastos',
   standalone: true,
-  imports: [NgFor, FormsModule],
+  imports: [NgFor, FormsModule, NgIf],
   providers: [], // Removemos o provideHttpClient daqui, pois foi configurado globalmente
   templateUrl: './gastos.component.html',
   styleUrls: ['./gastos.component.css']
@@ -24,6 +24,8 @@ export class GastosComponent implements OnInit, AfterViewInit {
     dataFim: ''
   };
 
+  mensagemErro: string = ''; // Nova variável para exibir mensagens de erro
+
   pieChartData: { label: string; value: number; pieflavor: string }[] = [];
   jsonData: { label: string; value: number }[] = [];
   barCharts: Chart[] = [];
@@ -38,7 +40,7 @@ export class GastosComponent implements OnInit, AfterViewInit {
   carregarDados() {
     const { clienteCPF, dataInicio, dataFim, conta, classificacao } = this.filtros;
   
-    // Verifica se foi selecionada uma classificação
+    // Se a classificação estiver definida, realiza o filtro por classificação
     if (classificacao !== undefined && classificacao !== null) {
       this.gastosService.getGastosPorClassificacao(clienteCPF, classificacao, dataInicio, dataFim).subscribe({
         next: (data) => {
@@ -50,9 +52,30 @@ export class GastosComponent implements OnInit, AfterViewInit {
         },
         error: (err) => console.error('Erro ao carregar dados por classificação:', err)
       });
+    } 
+    // Se a classificação não estiver definida, realiza o filtro por conta
+    else if (conta) {
+      this.gastosService.getGastosPorConta(clienteCPF, conta, dataInicio, dataFim).subscribe({
+        next: (data) => {
+          this.jsonData = data.map(item => ({
+            label: item.numeroConta,
+            value: item.valor
+          }));
+          this.initializeChartData();
+        },
+        error: (err) => console.error('Erro ao carregar dados por conta:', err)
+      });
+    } 
+    // Caso nem classificação nem conta sejam fornecidos, mostra uma mensagem de erro ou faz algo padrão
+    else {
+      this.mensagemErro = 'Por favor, selecione uma classificação ou uma conta para aplicar os filtros.';
+      console.error('Por favor, selecione uma classificação ou uma conta para aplicar os filtros.');
+      // Você pode adicionar uma mensagem de erro para o usuário aqui, por exemplo:
+      // this.showErrorMessage('Por favor, selecione uma classificação ou uma conta para aplicar os filtros.');
     }
   }
-    
+  
+
   initializeChartData() {
     this.pieChartData = this.jsonData.map((data, index) => ({
       ...data,
