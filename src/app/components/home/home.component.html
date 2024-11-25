@@ -1,21 +1,23 @@
 <main class="main-container">
-  <section class="first tabela">
-    <div *ngFor="let dado of saldoTotal" class="flex-row">
-      <p class="cor-titulo"><strong>Saldo Total:</strong></p>
-      <p class="cor-saldo">
-        <strong>R$ {{ dado.saldo }}</strong>
-      </p>
-    </div>
+  <section class="first">
+    <div class="tabela">
+      <div *ngFor="let dado of saldoTotal" class="flex-row">
+        <p class="cor-titulo"><strong>Saldo Total:</strong></p>
+        <p class="cor-saldo">
+          <strong>R$ {{ dado.saldo }}</strong>
+        </p>
+      </div>
 
-    <table>
-      <tbody class="itens-container flex-spc-btw">
-        <tr *ngFor="let dado of dadosUsuario" class="dados">
-          <td>{{ dado.numeroConta }}</td>
-          <td>{{ dado.nomeBanco }}</td>
-          <td>{{ dado.saldo }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table>
+        <tbody class="flex-spc-btw">
+          <tr *ngFor="let dado of dadosUsuario" class="dados">
+            <td>{{ dado.numeroConta }}</td>
+            <td>{{ dado.nomeBanco }}</td>
+            <td>{{ dado.saldo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section class="atalhos">
