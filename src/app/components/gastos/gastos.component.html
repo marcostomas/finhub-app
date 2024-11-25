@@ -4,6 +4,12 @@
             <h3 class="title">Distribuição de Gastos</h3>
         </div>
 
+        <!-- Adicionar um contêiner para a mensagem de erro -->
+        <div *ngIf="mensagemErro" class="error-message">
+            <p>{{ mensagemErro }}</p>
+        </div>
+
+
         <!-- Filtros -->
         <div class="Filtros-gastos-container">
             <h4 class="title">Filtros</h4>
