@@ -1,34 +1,64 @@
 <main class="main-container">
     <section>
         <div>
-            <h3 class="title">Distribuição de Gastos</h3>            
+            <h3 class="title">Distribuição de Gastos</h3>
         </div>
-        
-        <div class="div-pie">
-            <!-- Usando ViewChild para referenciar o canvas -->
-            <canvas #pieChart></canvas>
-        </div>
+
+        <!-- Filtros -->
         <div class="Filtros-gastos-container">
             <h4 class="title">Filtros</h4>
-            <div class="filtro-row">
-                <h5 style="color: #f76307;">Período</h5>
-                <input type="date" id="periodoFiltro">
-            </div>
-            <div class="filtro-row">
-                <h5 style="color: #f76307;">Conta</h5>
-                <input type="text" id="contaFiltro">
-            </div>
+            <form>
+                <!-- Filtro de Período -->
+                <div class="filtro-row">
+                    <h5 style="color: #f76307;">Período</h5>
+                    <label for="dataInicio">De:</label>
+                    <input
+                        id="dataInicio"
+                        type="date"
+                        [(ngModel)]="filtros.dataInicio"
+                        name="dataInicio"
+                        (change)="carregarDados()"
+                    />
+                    <label for="dataFim">Até:</label>
+                    <input
+                        id="dataFim"
+                        type="date"
+                        [(ngModel)]="filtros.dataFim"
+                        name="dataFim"
+                        (change)="carregarDados()"
+                    />
+                </div>
+
+                <!-- Filtro de Conta -->
+                <div class="filtro-row">
+                    <h5 style="color: #f76307;">Conta</h5>
+                    <input
+                        id="contaFiltro"
+                        type="text"
+                        [(ngModel)]="filtros.conta"
+                        name="conta"
+                        (keyup.enter)="carregarDados()"
+                        placeholder="Digite o número da conta"
+                    />
+                </div>
+            </form>
+        </div>
+
+        <!-- Gráfico de Pizza -->
+        <div class="div-pie">
+            <canvas #pieChart></canvas>
         </div>
     </section>
 
+    <!-- Gráficos de Barras -->
     <section>
         <div *ngFor="let _ of pieChartData; let i = index" class="chart-container">
             <div style="margin: 20px auto;">
                 <h3 class="title" [style.color]="pieChartData[i].pieflavor">
-                    Gastos Mensais para {{ pieChartData[i].label }} </h3>
+                    Gastos Mensais para {{ pieChartData[i].label }}
+                </h3>
             </div>
             <canvas #barChart></canvas>
-        </div>    
+        </div>
     </section>
-
 </main>
