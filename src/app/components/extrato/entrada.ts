@@ -1,13 +1,13 @@
 export interface Entrada {
-  saldoTotal: number;
-  entrada: number;
-  nomeEstabelecimento: string;
+  dataTransacao: Date;
+  valorTransacao: number;
+  nomeEmpresa: string;
 }
 
 export class DadosEntrada implements Entrada {
   constructor(
-    public saldoTotal: number,
-    public entrada: number,
-    public nomeEstabelecimento: string
+    public dataTransacao: Date,
+    public valorTransacao: number,
+    public nomeEmpresa: string
   ) {}
 }

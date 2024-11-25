@@ -131,8 +131,9 @@
     <table>
       <tbody>
         <tr *ngFor="let dado of entradaUsuario" class="dados">
-          <td class="background-item">+R$ {{ dado.entrada }}</td>
-          <td class="background-item">{{ dado.nomeEstabelecimento }}</td>
+          <td class="background-item">+R$ {{ dado.dataTransacao }}</td>
+          <td class="background-item">{{ dado.valorTransacao }}</td>
+          <td class="background-item">{{ dado.nomeEmpresa }}</td>
         </tr>
       </tbody>
     </table>
@@ -145,8 +146,9 @@
     <table>
       <tbody>
         <tr *ngFor="let dado of saidaUsuario" class="dados">
-          <td class="background-item">-R$ {{ dado.saida }}</td>
-          <td class="background-item">{{ dado.nomeEstabelecimento }}</td>
+          <td class="background-item">-R$ {{ dado.dataTransacao }}</td>
+          <td class="background-item">{{ dado.valorTransacao }}</td>
+          <td class="background-item">{{ dado.nomeEmpresa }}</td>
         </tr>
       </tbody>
     </table>
