@@ -1,81 +1,18 @@
-<!-- <main class="main-container">
-  <section class="first">
-    <div class="tabela">
-      <div class="flex-row">
-        <p class="cor-titulo"><strong>Saldo Total:</strong></p>
-        <p class="cor-saldo"><strong>R$ X.XXX,XX</strong></p>
-      </div>
-      <div class="dados-container">
-        <div class="dados">
-          <p>Conta X</p>
-          <p>Biffco Enterprises Ltd.</p>
-          <p>R$275.43</p>
-        </div>
-        <div class="dados">
-          <p>Conta Y</p>
-          <p>Acme Co.</p>
-          <p>R$450.54</p>
-        </div>
-        <div class="dados">
-          <p>Conta Z</p>
-          <p>Binford Ltd.</p>
-          <p>R$219.78</p>
-        </div>
-        <div class="dados">
-          <p>Conta K</p>
-          <p>Barone LLC.</p>
-          <p>R$406.27</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="atalhos">
-    <p class="cor-titulo"><strong>Atalhos</strong></p>
-    <div class="itens-container">
-      <div class="itens item-content">
-        <a routerLink="/home">
-          <p>Análise de Rendimentos</p>
-        </a>
-        <a routerLink="/home">
-          <span class="material-symbols-outlined"> trending_up </span>
-        </a>
-      </div>
-      <div class="itens item-content">
-        <a routerLink="/extrato" class="">
-          <p>Saldo Total</p>
-        </a>
-        <a routerLink="/extrato">
-          <span class="material-symbols-outlined"> paid </span>
-        </a>
-      </div>
-      <div class="itens item-content">
-        <a routerLink="/gastos">
-          <p>Proventos Recebidos</p>
-        </a>
-        <a routerLink="/gastos">
-          <span class="material-symbols-outlined"> money_bag </span>
-        </a>
-      </div>
-    </div>
-  </section>
-</main> -->
-
 <main class="main-container">
   <section class="first tabela">
-    <div *ngFor="let dado of dadosUsuario" class="flex-row">
+    <div *ngFor="let dado of saldoTotal" class="flex-row">
       <p class="cor-titulo"><strong>Saldo Total:</strong></p>
       <p class="cor-saldo">
-        <strong>R$ {{ dado.saldoTotal }}</strong>
+        <strong>R$ {{ dado.saldo }}</strong>
       </p>
     </div>
 
     <table>
       <tbody class="itens-container flex-spc-btw">
         <tr *ngFor="let dado of dadosUsuario" class="dados">
-          <td>{{ dado.conta }}</td>
-          <td>{{ dado.nomeEmpresa }}</td>
-          <td>{{ dado.saldoConta }}</td>
+          <td>{{ dado.numeroConta }}</td>
+          <td>{{ dado.nomeBanco }}</td>
+          <td>{{ dado.saldo }}</td>
         </tr>
       </tbody>
     </table>

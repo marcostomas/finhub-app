@@ -3,21 +3,29 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DadosEntrada } from './entrada';
 import { DadosSaida } from './saida';
+import { SaldoTotalHome } from '../home/interfaces/saldo-total';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExtratoService {
-  private apiUrlEntrada = 'URL_DA_API_ENTRADA';
-  private apiUrlSaida = 'URL_DA_API_SAIDA';
-
   constructor(private http: HttpClient) {}
 
-  getDadosEntrada(): Observable<DadosEntrada> {
-    return this.http.get<DadosEntrada>(this.apiUrlEntrada);
+  getSaldoConta(cpf: string): Observable<SaldoTotalHome> {
+    return this.http.get<SaldoTotalHome>(
+      `https://localhost:7152/api/Extrato/SaldoConta?cpf=${cpf}`
+    );
   }
 
-  getDadosSaida(): Observable<DadosSaida> {
-    return this.http.get<DadosSaida>(this.apiUrlSaida);
+  getDadosEntrada(cpf: string): Observable<DadosEntrada> {
+    return this.http.get<DadosEntrada>(
+      `https://localhost:7152/api/Extrato/EntradasConta?cpf=${cpf}`
+    );
+  }
+
+  getDadosSaida(cpf: string): Observable<DadosSaida> {
+    return this.http.get<DadosSaida>(
+      `https://localhost:7152/api/Extrato/SaidasConta?cpf=${cpf}`
+    );
   }
 }

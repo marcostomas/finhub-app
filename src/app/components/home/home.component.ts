@@ -10,17 +10,27 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+  public saldoTotal: any;
   public dadosUsuario: any;
   constructor(private service: HomeService) {}
 
   ngOnInit() {
-    this.getData();
+    this.getSaldoTotal('47526501933');
+    this.getContas('47526501933');
   }
 
-  private getData(): void {
+  private getSaldoTotal(cpf: string): void {
+    this.saldoTotal = [];
+
+    this.service.getSaldoConta(cpf).subscribe((response) => {
+      this.saldoTotal = response;
+    });
+  }
+
+  private getContas(cpf: string): void {
     this.dadosUsuario = [];
 
-    this.service.getDados().subscribe((response) => {
+    this.service.getDadosContas(cpf).subscribe((response) => {
       this.dadosUsuario = response;
     });
   }

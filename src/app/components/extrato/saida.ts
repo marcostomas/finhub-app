@@ -1,13 +1,13 @@
 export interface Saida {
-  saldoTotal: number;
-  saida: number;
-  nomeEstabelecimento: string;
+  dataTransacao: Date;
+  valorTransacao: number;
+  nomeEmpresa: string;
 }
 
 export class DadosSaida implements Saida {
   constructor(
-    public saldoTotal: number,
-    public saida: number,
-    public nomeEstabelecimento: string
+    public dataTransacao: Date,
+    public valorTransacao: number,
+    public nomeEmpresa: string
   ) {}
 }

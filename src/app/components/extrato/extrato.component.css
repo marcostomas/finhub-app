@@ -1,4 +1,4 @@
-.main-container {
+/* .main-container {
   padding: 24px;
   display: flex;
   gap: 40px;
@@ -131,4 +131,56 @@ h4 {
   gap: 16px;
   display: flex;
   justify-content: space-between;
+}
+.main-container {
+  padding: 24px;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  background-color: #fffaf0;
+}
+
+.item-container {
+  width: 300px;
+  background-color: #f76507;
+  border-radius: 15px;
+  padding: 16px;
+}
+
+h4 {
+  font-size: 24px;
+  color: white;
+  text-align: center;
+}
+
+.total-container {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin: 8px 0;
+}
+
+table {
+  width: 100%;
+}
+
+.dados {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.background-item {
+  width: 48%;
+  padding: 6px;
+  border-radius: 5px;
+  background-color: #fffaf0;
+  color: #386150;
+  text-align: left;
+}
+
+.dados:nth-child(even) .background-item {
+  background-color: #f76507;
+  color: white;
 }
