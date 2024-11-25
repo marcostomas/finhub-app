@@ -3,6 +3,7 @@
   display: flex;
   gap: 40px;
   justify-content: center;
+  background-color: #fffaf0;
 }
 
 .item-container {
@@ -46,4 +47,88 @@ h4 {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+/*depois, apagar as classes que não forem usadas*/
+
+.cor-titulo {
+  color: #f76507;
+  font-size: 20px;
+}
+
+.cor-saldo {
+  color: #006992;
+  font-size: 20px;
+}
+
+.flex-row {
+  display: flex;
+  gap: 16px;
+}
+
+.tabela {
+  padding: 16px 24px;
+  border: 8px solid #f76507;
+  border-radius: 20px;
+  width: 50%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.first {
+  display: flex;
+  justify-content: center;
+}
+
+.dados-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dados {
+  color: #006992;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.atalhos {
+  padding-left: 32px;
+}
+
+.itens {
+  padding: 8px;
+  width: 250px;
+  height: 120px;
+  border-radius: 30px;
+  background-color: #f76507;
+  color: white;
+}
+
+.itens-container {
+  display: flex;
+  gap: 60px;
+}
+
+.material-symbols-outlined {
+  color: white;
+  font-size: 70px;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-spc-btw {
+  gap: 16px;
+  display: flex;
+  justify-content: space-between;
 }
