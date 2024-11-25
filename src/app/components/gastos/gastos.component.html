@@ -7,19 +7,19 @@
         <!-- Filtros -->
         <div class="Filtros-gastos-container">
             <h4 class="title">Filtros</h4>
-            <form style="display: flex;">
+            <form style="display: container;">
                 <!-- Filtro de Período -->
                 <div class="filtro-row">
                     <h5 style="color: #f76307;">Período</h5>
                     <label style="margin-right: 8px;" for="dataInicio">De:</label>
-                    <input
+                    <input style="margin-right: 8px;"
                     id="dataInicio"
                     type="date"
                     [(ngModel)]="filtros.dataInicio"
                     name="dataInicio"
                     (change)="carregarDados()"
                     />
-                    <label style="margin-right: 8px;margin-left: 16px;" for="dataFim">Até:</label>
+                    <label style="margin-right: 8px;" for="dataFim">Até:</label>
                     <input
                     id="dataFim"
                     type="date"
