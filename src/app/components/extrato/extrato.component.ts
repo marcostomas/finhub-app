@@ -12,7 +12,7 @@ import { ExtratoService } from './extrato.service';
 export class ExtratoComponent implements OnInit {
   public entradaUsuario: any;
   public saidaUsuario: any;
-  public saldoTotal: any;
+  public saldoTotal: any = { saldo: 0 };
   constructor(private service: ExtratoService) {}
 
   ngOnInit() {
@@ -22,7 +22,6 @@ export class ExtratoComponent implements OnInit {
   }
 
   private getSaldoTotal(cpf: string): void {
-    this.saldoTotal = [];
 
     this.service.getSaldoConta(cpf).subscribe((response) => {
       this.saldoTotal = response;
