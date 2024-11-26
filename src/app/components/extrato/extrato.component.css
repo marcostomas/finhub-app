@@ -1,187 +1,99 @@
-/* .main-container {
-  padding: 24px;
-  display: flex;
-  gap: 40px;
-  justify-content: center;
-  background-color: #fffaf0;
+/* Paleta de cores */
+:root {
+  --laranja-principal: #f76507;
+  --fundo-principal: #fffaf0;
+  --verde-texto: #386150;
+  --azul-saldo: #006992;
+  --branco: white;
 }
 
-.item-container {
-  padding: 16px;
-  width: 45%;
-  height: 60%;
-  background-color: #f76507;
-  border-radius: 15px;
-}
-
-h4 {
-  font-size: 24px;
-  color: white;
-  display: flex;
-  justify-content: center;
-}
-
-.total-container {
-  color: white;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-}
-
-.background-item {
-  padding: 2px;
-  border-radius: 5px;
-  background-color: #fffaf0;
-  color: #386150;
-  gap: 16px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.no-background-item {
-  padding: 2px;
-  background-color: #f76507;
-  color: white;
-  gap: 16px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-/*depois, apagar as classes que não forem usadas*/
-
-.cor-titulo {
-  color: #f76507;
-  font-size: 20px;
-}
-
-.cor-saldo {
-  color: #006992;
-  font-size: 20px;
-}
-
-.flex-row {
-  display: flex;
-  gap: 16px;
-}
-
-.tabela {
-  padding: 16px 24px;
-  border: 8px solid #f76507;
-  border-radius: 20px;
-  width: 50%;
-  height: 30%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.first {
-  display: flex;
-  justify-content: center;
-}
-
-.dados-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.dados {
-  color: #006992;
-  font-size: 20px;
-  display: flex;
-  justify-content: space-between;
-  gap: 60px;
-}
-
-.atalhos {
-  padding-left: 32px;
-}
-
-.itens {
-  padding: 8px;
-  width: 250px;
-  height: 120px;
-  border-radius: 30px;
-  background-color: #f76507;
-  color: white;
-}
-
-.itens-container {
-  display: flex;
-  gap: 60px;
-}
-
-.material-symbols-outlined {
-  color: white;
-  font-size: 70px;
-}
-
-.item-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.flex-spc-btw {
-  gap: 16px;
-  display: flex;
-  justify-content: space-between;
-}
-
+/* Layout Principal */
 .main-container {
   padding: 24px;
   display: flex;
   gap: 40px;
   justify-content: center;
-  background-color: #fffaf0;
+  background-color: var(--fundo-principal);
 }
 
+/* Contêiner dos Itens */
 .item-container {
-  width: 300px;
-  background-color: #f76507;
+  background-color: var(--laranja-principal);
   border-radius: 15px;
   padding: 16px;
+  width: 45%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Títulos */
 h4 {
   font-size: 24px;
-  color: white;
+  color: var(--branco);
   text-align: center;
+  margin-bottom: 12px;
 }
 
+/* Contêiner Total */
 .total-container {
-  color: white;
+  color: var(--branco);
   font-size: 18px;
   font-weight: bold;
   text-align: center;
-  margin: 8px 0;
+  margin: 8px 0 16px;
 }
 
-table {
+/* Tabela */
+.table {
   width: 100%;
+  border-collapse: collapse;
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
+/* Linhas da Tabela */
 .dados {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 8px;
+  border: 4px solid #f76507;
+  border-radius: 5%;
+  background: linear-gradient(to right, #F5DEB3, #DEB887); /* Cores de bege: Wheat e BurlyWood */
 }
 
-.background-item {
-  width: 48%;
-  padding: 6px;
-  border-radius: 5px;
-  background-color: #fffaf0;
-  color: #386150;
-  text-align: left;
+.dados td {
+  flex: 1;
+  text-align: center;
+  color: var(--branco);
 }
 
-.dados:nth-child(even) .background-item {
-  background-color: #f76507;
-  color: white;
+/* Item de Fundo Alternado */
+.dados:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item-container {
+    width: 90%;
+  }
+}
+
+/* Classes Úteis Mantidas */
+.flex-row {
+  display: flex;
+  gap: 16px;
+}
+
+.flex-spc-btw {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
 }

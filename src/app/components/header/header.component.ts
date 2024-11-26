@@ -11,7 +11,7 @@ import { HomeService } from '../home/home.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  public saldoTotal: any;
+  public saldoTotal: any = { saldo: 0 };
 
   constructor(private request: HomeService) {}
 
@@ -24,8 +24,6 @@ export class HeaderComponent implements OnInit {
   }
 
   public getSaldoTotal(cpf: string): void {
-    this.saldoTotal = [];
-
     this.request.getSaldoConta(cpf).subscribe((response) => {
       this.saldoTotal = response;
     });

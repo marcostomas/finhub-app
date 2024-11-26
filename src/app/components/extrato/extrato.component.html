@@ -128,12 +128,12 @@
   <section class="tabela item-container">
     <h4>Entradas</h4>
     <div class="total-container">Total: {{ saldoTotal.saldo }}</div>
-    <table>
+    <table class="table">
       <tbody>
         <tr *ngFor="let dado of entradaUsuario" class="dados">
-          <td class="background-item">+R$ {{ dado.dataTransacao }}</td>
-          <td class="background-item">{{ dado.valorTransacao }}</td>
-          <td class="background-item">{{ dado.nomeEmpresa }}</td>
+          <td class="">{{ dado.dataTransacao }}</td>
+          <td class="">+R$ {{ dado.valorTransacao }}</td>
+          <td class="">{{ dado.nomeEmpresa }}</td>
         </tr>
       </tbody>
     </table>
@@ -143,12 +143,12 @@
   <section class="tabela item-container">
     <h4>Saídas</h4>
     <div class="total-container">Total: {{ saldoTotal.saldo }}</div>
-    <table>
+    <table class="table">
       <tbody>
         <tr *ngFor="let dado of saidaUsuario" class="dados">
-          <td class="background-item">-R$ {{ dado.dataTransacao }}</td>
-          <td class="background-item">{{ dado.valorTransacao }}</td>
-          <td class="background-item">{{ dado.nomeEmpresa }}</td>
+          <td class="">{{ dado.dataTransacao }}</td>
+          <td class="">-R$ {{ dado.valorTransacao }}</td>
+          <td class="">{{ dado.nomeEmpresa }}</td>
         </tr>
       </tbody>
     </table>
