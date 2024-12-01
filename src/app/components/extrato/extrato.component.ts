@@ -12,25 +12,34 @@ import { ExtratoService } from './extrato.service';
 export class ExtratoComponent implements OnInit {
   public entradaUsuario: any;
   public saidaUsuario: any;
+  public saldoTotal: any = { saldo: 0 };
   constructor(private service: ExtratoService) {}
 
   ngOnInit() {
-    this.getEntradaData();
-    this.getSaidaData();
+    this.getSaldoTotal('47526501933');
+    this.getEntradaData('47526501933');
+    this.getSaidaData('47526501933');
   }
 
-  private getEntradaData(): void {
+  private getSaldoTotal(cpf: string): void {
+
+    this.service.getSaldoConta(cpf).subscribe((response) => {
+      this.saldoTotal = response;
+    });
+  }
+
+  private getEntradaData(cpf: string): void {
     this.entradaUsuario = [];
 
-    this.service.getDadosEntrada().subscribe((response) => {
+    this.service.getDadosEntrada(cpf).subscribe((response) => {
       this.entradaUsuario = response;
     });
   }
 
-  private getSaidaData(): void {
+  private getSaidaData(cpf: string): void {
     this.saidaUsuario = [];
 
-    this.service.getDadosSaida().subscribe((response) => {
+    this.service.getDadosSaida(cpf).subscribe((response) => {
       this.saidaUsuario = response;
     });
   }

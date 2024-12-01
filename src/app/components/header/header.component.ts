@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HomeService } from '../home/home.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,9 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  public saldoTotal: any = { saldo: 0 };
+
+  constructor(private request: HomeService) {}
 
   ngOnInit() {}
 
@@ -18,5 +21,11 @@ export class HeaderComponent implements OnInit {
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+  }
+
+  public getSaldoTotal(cpf: string): void {
+    this.request.getSaldoConta(cpf).subscribe((response) => {
+      this.saldoTotal = response;
+    });
   }
 }
