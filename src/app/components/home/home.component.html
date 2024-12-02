@@ -1,4 +1,5 @@
 <main class="main-container">
+  <!-- Saldo Total -->
   <section class="first">
     <div class="tabela">
       <div class="flex-row">
@@ -7,44 +8,46 @@
           <strong>R$ {{ saldoTotal.saldo }}</strong>
         </p>
       </div>
-
       <table>
-        <tbody class="flex-spc-btw">
+        <tbody>
           <tr *ngFor="let dado of dadosUsuario" class="dados">
             <td>{{ dado.numeroConta }}</td>
             <td>{{ dado.nomeBanco }}</td>
-            <td>{{ dado.saldo }}</td>
+            <td>R$ {{ dado.saldo }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
 
+  <!-- Atalhos -->
   <section class="atalhos">
     <p class="cor-titulo"><strong>Atalhos</strong></p>
     <div class="itens-container">
       <div class="itens item-content">
         <a routerLink="/home">
-          <p>Análise de Rendimentos</p>
-        </a>
-        <a routerLink="/home">
-          <span class="material-symbols-outlined"> trending_up </span>
-        </a>
-      </div>
-      <div class="itens item-content">
-        <a routerLink="/extrato" class="">
           <p>Saldo Total</p>
         </a>
-        <a routerLink="/extrato">
-          <span class="material-symbols-outlined"> paid </span>
+        <a routerLink="/home">
+          <span class="material-symbols-outlined">paid</span>
         </a>
       </div>
+
+      <div class="itens item-content">
+        <a routerLink="/home">
+          <p>Extrato</p>
+        </a>
+        <a routerLink="/home">
+          <span class="material-symbols-outlined">attach_money</span>
+        </a>
+      </div>
+
       <div class="itens item-content">
         <a routerLink="/gastos">
           <p>Proventos Recebidos</p>
         </a>
         <a routerLink="/gastos">
-          <span class="material-symbols-outlined"> money_bag </span>
+          <span class="material-symbols-outlined">money_bag</span>
         </a>
       </div>
     </div>

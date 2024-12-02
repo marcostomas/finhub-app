@@ -1,138 +1,13 @@
-<!-- <main class="main-container">
-  <section class="item-container">
-    <div>
-      <h4>Entradas</h4>
-    </div>
-    <div class="total-container">
-      <p>Total: R$ 12.345,67</p>
-    </div>
-    <div>
-      <div class="background-item">
-        <p>+R$200</p>
-        <p>Banco Central</p>
-      </div>
-      <div class="no-background-item">
-        <p>+R$1255,25</p>
-        <p>Paypag</p>
-      </div>
-      <div class="background-item">
-        <p>+R$777,77</p>
-        <p>Bolsa XXXX</p>
-      </div>
-      <div class="no-background-item">
-        <p>+R$111,20</p>
-        <p>Pagamento Y</p>
-      </div>
-      <div class="background-item">
-        <p>+R$25</p>
-        <p>PayBack</p>
-      </div>
-      <div class="no-background-item">
-        <p>+R$147,00</p>
-        <p>Bônus ZZZ</p>
-      </div>
-      <div class="background-item">
-        <p>+R$777,77</p>
-        <p>Bolsa XXXX</p>
-      </div>
-      <div class="no-background-item">
-        <p>+R$245,89</p>
-        <p>Banco Central</p>
-      </div>
-    </div>
-  </section>
-  <section class="item-container">
-    <div>
-      <h4>Saídas</h4>
-    </div>
-    <div class="total-container">
-      <p>Total: R$ 12.345,67</p>
-    </div>
-    <div>
-      <div class="background-item">
-        <p>-R$200</p>
-        <p>Banco Central</p>
-      </div>
-      <div class="no-background-item">
-        <p>-R$275,43</p>
-        <p>The Walt Disney Company</p>
-      </div>
-      <div class="background-item">
-        <p>-R$1255,55</p>
-        <p>Facebook</p>
-      </div>
-      <div class="no-background-item">
-        <p>-R$757,33</p>
-        <p>Pizza Hut</p>
-      </div>
-      <div class="background-item">
-        <p>-R$200</p>
-        <p>L´Oreal</p>
-      </div>
-      <div class="no-background-item">
-        <p>-R$25,00</p>
-        <p>PayBack</p>
-      </div>
-      <div class="background-item">
-        <p>-R$147,00</p>
-        <p>The Walt Disney Company</p>
-      </div>
-      <div class="no-background-item">
-        <p>-R$777,77</p>
-        <p>eBay</p>
-      </div>
-    </div>
-  </section>
-</main> -->
-
-<!-- <main class="main-container">
-  <section class="tabela">
-    <div *ngFor="let dado of entradaUsuario" class="flex-row">
-      <p class="cor-titulo"><strong>Saldo Total:</strong></p>
-      <p class="cor-saldo">
-        <strong>R$ {{ dado.saldoTotal }}</strong>
-      </p>
-    </div>
-
-    <table>
-      <tbody class="itens-container flex-spc-btw">
-        <tr *ngFor="let dado of entradaUsuario" class="dados">
-          <td>{{ dado.entrada }}</td>
-          <td>{{ dado.nomeEstabelecimento }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="tabela">
-    <div *ngFor="let dado of saidaUsuario" class="flex-row">
-      <p class="cor-titulo"><strong>Saldo Total:</strong></p>
-      <p class="cor-saldo">
-        <strong>R$ {{ dado.saldoTotal }}</strong>
-      </p>
-    </div>
-
-    <table>
-      <tbody class="itens-container flex-spc-btw">
-        <tr *ngFor="let dado of saidaUsuario" class="dados">
-          <td>{{ dado.saida }}</td>
-          <td>{{ dado.nomeEstabelecimento }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-</main> -->
-
 <main class="main-container">
   <!-- Entradas -->
   <section class="tabela item-container">
     <h4>Entradas</h4>
-    <div class="total-container">Total: {{ saldoTotal.saldo }}</div>
+    <div class="total-container">Total: R$ {{ saldoTotal.saldo }}</div>
     <table>
       <tbody>
         <tr *ngFor="let dado of entradaUsuario" class="dados">
-          <td class="background-item">+R$ {{ dado.dataTransacao }}</td>
-          <td class="background-item">{{ dado.valorTransacao }}</td>
+          <td class="background-item">+R$ {{ dado.valorTransacao }}</td>
+          <td class="background-item">{{ dado.dataTransacao }}</td>
           <td class="background-item">{{ dado.nomeEmpresa }}</td>
         </tr>
       </tbody>
@@ -142,12 +17,12 @@
   <!-- Saídas -->
   <section class="tabela item-container">
     <h4>Saídas</h4>
-    <div class="total-container">Total: {{ saldoTotal.saldo }}</div>
+    <div class="total-container">Total: R$ {{ saldoTotal.saldo }}</div>
     <table>
       <tbody>
         <tr *ngFor="let dado of saidaUsuario" class="dados">
-          <td class="background-item">-R$ {{ dado.dataTransacao }}</td>
-          <td class="background-item">{{ dado.valorTransacao }}</td>
+          <td class="background-item">-R$ {{ dado.valorTransacao }}</td>
+          <td class="background-item">{{ dado.dataTransacao }}</td>
           <td class="background-item">{{ dado.nomeEmpresa }}</td>
         </tr>
       </tbody>

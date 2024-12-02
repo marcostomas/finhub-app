@@ -22,7 +22,6 @@ export class ExtratoComponent implements OnInit {
   }
 
   private getSaldoTotal(cpf: string): void {
-
     this.service.getSaldoConta(cpf).subscribe((response) => {
       this.saldoTotal = response;
     });
@@ -38,7 +37,6 @@ export class ExtratoComponent implements OnInit {
 
   private getSaidaData(cpf: string): void {
     this.saidaUsuario = [];
-
     this.service.getDadosSaida(cpf).subscribe((response) => {
       this.saidaUsuario = response;
     });
