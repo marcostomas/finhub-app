@@ -1,7 +1,7 @@
 export interface SaldoTotal {
-  saldo: number;
+  saldo: string;
 }
 
 export class SaldoTotalHome implements SaldoTotal {
-  constructor(public saldo: number) {}
+  constructor(public saldo: string) {}
 }
