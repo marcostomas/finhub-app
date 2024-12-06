@@ -74,6 +74,16 @@ export class GastosComponent implements OnInit, AfterViewInit {
   carregarDados() {
     const { clienteCPF, dataInicio, dataFim, conta } = this.filtros;
   
+    // Convertendo as datas para objetos Date
+    const inicio = new Date(dataInicio);
+    const fim = new Date(dataFim);
+
+    // Verificando se o intervalo de datas é válido
+    if (inicio > fim) {
+      this.mensagemErro = 'A data de início não pode ser maior que a data de fim.';
+      return;
+    }
+
     // Carregar os dados para o gráfico de pizza com base na classificação
     this.gastosService.GetGastosPorClassificacao(clienteCPF, dataInicio, dataFim).subscribe({
       next: (data) => {
@@ -85,9 +95,8 @@ export class GastosComponent implements OnInit, AfterViewInit {
         }));
         this.initializeChartData();
         // Log para debugar os dados do gráfico de pizza
-        console.log(this.pieChartData);
         
-        // Inicializa o gráfico de pizza (caso já tenha dados)
+        //Inicializa o gráfico de pizza (caso já tenha dados)
         if (this.pieChartData.length > 0) {
           this.createPieChart();
         }
@@ -97,46 +106,76 @@ export class GastosComponent implements OnInit, AfterViewInit {
         this.mensagemErro = 'Erro ao carregar dados por classificação';
       }
     });
-  
+
     // Verifica se há uma conta específica para filtrar os dados do gráfico de barras
     if (conta) {
       // Busca apenas os dados da conta selecionada
-      this.gastosService.getGastosPorConta(clienteCPF, conta, dataInicio, dataFim).subscribe({
-        next: (data) => {
-          this.jsonData = [
-            {
-              label: data.numeroConta,
-              value: data.valor,
-            },
-          ];
-          this.initializeChartData(); // Atualiza os dados para o gráfico de barras
-        },
-        error: (err) => {
-          console.error('Erro ao carregar dados por conta:', err);
-          this.mensagemErro = 'Erro ao carregar dados por conta';
-        },
-      });
+      // this.gastosService.getGastosPorConta(clienteCPF, conta, dataInicio, dataFim).subscribe({
+      //   next: (data) => {
+      //     this.jsonData = [
+      //       {
+      //         label: data.numeroConta,
+      //         value: data.valor,
+      //       },
+      //     ];
+      //     this.initializeChartData(); // Atualiza os dados para o gráfico de barras
+      //   },
+      //   error: (err) => {
+      //     console.error('Erro ao carregar dados por conta:', err);
+      //     this.mensagemErro = 'Erro ao carregar dados por conta';
+      //   },
+      // });
+      let currentDate = new Date(inicio);
+      while (currentDate <= fim) {
+        const startMonth = this.formatDate(currentDate);
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        const endMonth = this.formatDate(currentDate);
+
+        // Fazendo a requisição para cada mês
+        this.gastosService.getGastosPorConta(clienteCPF, conta, startMonth, endMonth).subscribe({
+          next: (data) => {
+            this.jsonData.push({
+              label: `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}`,
+              value: Math.abs(data.valor), // Garantindo que o valor seja positivo
+            });
+
+            this.jsonData = [...this.jsonData]; // Atualiza a lista de dados para o gráfico de barras
+            this.initializeChartData(); // Atualiza os dados para o gráfico de barras
+          },
+          error: (err) => {
+            console.error('Erro ao carregar dados da conta:', err);
+            this.mensagemErro = 'Erro ao carregar dados da conta';
+          }
+        });
+      }
     } else {
       // Se não houver conta, busca os dados para todas as contas
       this.jsonData = [];
       this.contas.forEach((conta) => {
-        this.gastosService
-          .getGastosPorConta(clienteCPF, conta.numero, dataInicio, dataFim)
-          .subscribe({
+      // Para cada mês entre a data de início e a data de fim
+        let currentDate = new Date(inicio);
+        while (currentDate <= fim) {
+          const startMonth = this.formatDate(currentDate);
+          currentDate.setMonth(currentDate.getMonth() + 1);
+          const endMonth = this.formatDate(currentDate);
+
+          // Fazendo a requisição para cada mês
+          this.gastosService.getGastosPorConta(clienteCPF, conta.numero, startMonth, endMonth).subscribe({
             next: (data) => {
-              console.log(`Dados processados para a conta ${conta.nome}:`, data);
               this.jsonData.push({
-                label: conta.nome,
-                value: Math.abs(data.valor),
+                label: `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}`,
+                value: Math.abs(data.valor), // Garantindo que o valor seja positivo
               });
+
               this.jsonData = [...this.jsonData]; // Atualiza a lista de dados para o gráfico de barras
               this.initializeChartData(); // Atualiza os dados para o gráfico de barras
             },
             error: (err) => {
-              console.error(`Erro ao carregar dados da conta ${conta.nome}:`, err);
-              this.mensagemErro = `Erro ao carregar dados da conta ${conta.nome}`;
-            },
+              console.error('Erro ao carregar dados da conta:', err);
+              this.mensagemErro = 'Erro ao carregar dados da conta';
+            }
           });
+        }
       });
     }
   }
@@ -195,32 +234,35 @@ export class GastosComponent implements OnInit, AfterViewInit {
   createBarCharts() {
     this.barCharts.forEach((chart) => chart.destroy()); // Destroi gráficos de barras existentes
     this.barCharts = []; // Reseta a lista de gráficos
-
-    this.barCanvasRefs.toArray().forEach((canvasRef, index) => {
-      const ctx = canvasRef.nativeElement.getContext('2d');
-      if (ctx) {
-        const chart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: this.jsonData.map((d) => d.label),
-            datasets: [
-              {
-                label: this.jsonData[index]?.label || 'Categoria',
-                data: [this.jsonData[index]?.value || 0],
-                backgroundColor: this.pieChartData[index]?.pieflavor || '#cccccc',
-              },
-            ],
-          } as ChartData,
-          options: {
-            scales: {
-              y: {
-                beginAtZero: false,
-              },
+  
+    const labels = this.jsonData.map((d) => d.label);
+    const values = this.jsonData.map((d) => d.value);
+  
+    const ctx = this.barCanvasRefs.first.nativeElement.getContext('2d');
+    if (ctx) {
+      const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels, // Mês
+          datasets: [
+            {
+              label: 'Gastos Mensais',
+              data: values, // Valores de cada mês
+              backgroundColor: this.getDynamicColor(0), // A mesma cor para todas as barras
             },
-          } as ChartOptions,
-        });
-        this.barCharts.push(chart);
-      }
-    });
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: false,
+            },
+          },
+        },
+      });
+  
+      this.barCharts.push(chart);
+    }
   }
+  
 }

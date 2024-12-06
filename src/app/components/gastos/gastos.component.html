@@ -63,13 +63,14 @@
 
     <!-- Gráficos de Barras -->
     <section>
-        <div *ngFor="let _ of pieChartData; let i = index" class="chart-container">
-            <div style="margin: 20px auto;">
-                <h3 class="title" [style.color]="pieChartData[i].pieflavor">
-                    Gastos Mensais para {{ pieChartData[i].label }}
-                </h3>
-            </div>
-            <canvas #barChart></canvas>
+        <div *ngFor="let _ of jsonData; let i = index" class="chart-container">
+          <div style="margin: 20px auto;">
+            <h3 class="title" [style.color]="pieChartData[i].pieflavor">
+              Gastos Mensais para {{ contas[i].nome }}
+            </h3>
+          </div>
+          <canvas #barChart></canvas>
         </div>
-    </section>
+      </section>
+      
 </main>
