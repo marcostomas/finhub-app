@@ -49,4 +49,15 @@
     height: max-content;
     background-color: none;
 }
+
+.error-message {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #ffdddd;
+  border: 1px solid #f76307;
+  color: #d8000c;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
   

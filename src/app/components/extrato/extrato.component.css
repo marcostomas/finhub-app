@@ -13,6 +13,7 @@ body {
   background-color: #fffaf0;
 }
 
+/* Contêiner dos Itens */
 .item-container {
   background-color: #ff7300;
   border-radius: 10px;
@@ -24,8 +25,9 @@ body {
 .item-container h4 {
   margin-bottom: 10px;
   font-size: 18px;
-  display: flex;
-  justify-content: center;
+  font-weight: bold;
+  text-align: center;
+  margin: 8px 0 16px;
 }
 
 .total-container {

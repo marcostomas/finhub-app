@@ -4,6 +4,12 @@
             <h3 class="title">Distribuição de Gastos</h3>
         </div>
 
+        <!-- Adicionar um contêiner para a mensagem de erro -->
+        <div *ngIf="mensagemErro" class="error-message">
+            <p>{{ mensagemErro }}</p>
+        </div>
+
+
         <!-- Filtros -->
         <div class="Filtros-gastos-container">
             <h4 class="title">Filtros</h4>
@@ -38,35 +44,13 @@
                       name="conta"
                       (change)="carregarDados()"
                     >
-                      <option value="" disabled selected>Selecione uma conta</option>
+                      <option value="" selected>Todas</option>
                       <option value="12345678">12345678: Bradesco</option>
                       <option value="56482100">56482100: Banco PAN</option>
                       <option value="45469208">45469208: Banco Safra</option>
                       <option value="89461379">89461379: BTG Pactual</option>
                     </select>
                 </div>
-                  
-                <div class="filtro-row">
-                    <h5 style="color: #f76307;">Categoria</h5>
-                    <select
-                      id="classificacaoFiltro"
-                      [(ngModel)]="filtros.classificacao"
-                      name="classificacao"
-                      (change)="carregarDados()"
-                    >
-                      <option value="" disabled selected>Selecione uma classificação</option>
-                      <option value="0">Contas</option>
-                      <option value="1">Compras</option>
-                      <option value="2">Transporte</option>
-                      <option value="3">Alimentação</option>
-                      <option value="4">Educação</option>
-                      <option value="5">Saúde</option>
-                      <option value="6">Lazer e Entretenimento</option>
-                      <option value="7">Valores Creditados</option>
-                      <option value="8">Outros</option>
-                    </select>
-                </div>
-                  
                   
             </form>
         </div>
@@ -79,13 +63,14 @@
 
     <!-- Gráficos de Barras -->
     <section>
-        <div *ngFor="let _ of pieChartData; let i = index" class="chart-container">
-            <div style="margin: 20px auto;">
-                <h3 class="title" [style.color]="pieChartData[i].pieflavor">
-                    Gastos Mensais para {{ pieChartData[i].label }}
-                </h3>
-            </div>
-            <canvas #barChart></canvas>
+        <div *ngFor="let _ of jsonData; let i = index" class="chart-container">
+          <div style="margin: 20px auto;">
+            <h3 *ngIf="!filtros.conta" class="title" [style.color]="colors[i]">
+              Gastos Mensais para {{ jsonData[i].nomeconta }}
+            </h3>
+          </div>
+          <canvas #barChart></canvas>
         </div>
-    </section>
+      </section>
+      
 </main>
