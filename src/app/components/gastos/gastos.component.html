@@ -65,8 +65,11 @@
     <section>
         <div *ngFor="let _ of jsonData; let i = index" class="chart-container">
           <div style="margin: 20px auto;">
-            <h3 class="title" [style.color]="pieChartData[i].pieflavor">
+            <h3 *ngIf="!filtros.conta" class="title" [style.color]="colors[i]">
               Gastos Mensais para {{ contas[i].nome }}
+            </h3>
+            <h3 *ngIf="filtros.conta" class="title" [style.color]="colors[i]">
+              Gastos Mensais para {{ filtros.conta }}
             </h3>
           </div>
           <canvas #barChart></canvas>
