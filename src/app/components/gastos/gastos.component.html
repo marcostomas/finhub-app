@@ -44,7 +44,7 @@
                       name="conta"
                       (change)="carregarDados()"
                     >
-                      <option value="" disabled selected>Selecione uma conta</option>
+                      <option value="" selected>Todas</option>
                       <option value="12345678">12345678: Bradesco</option>
                       <option value="56482100">56482100: Banco PAN</option>
                       <option value="45469208">45469208: Banco Safra</option>
@@ -66,10 +66,7 @@
         <div *ngFor="let _ of jsonData; let i = index" class="chart-container">
           <div style="margin: 20px auto;">
             <h3 *ngIf="!filtros.conta" class="title" [style.color]="colors[i]">
-              Gastos Mensais para {{ contas[i].nome }}
-            </h3>
-            <h3 *ngIf="filtros.conta" class="title" [style.color]="colors[i]">
-              Gastos Mensais para {{ filtros.conta }}
+              Gastos Mensais para {{ jsonData[i].nomeconta }}
             </h3>
           </div>
           <canvas #barChart></canvas>
